@@ -17,7 +17,7 @@ def get_success_urls(request):
     if 'next' in request.GET and request.GET['next'] != '':
         return request.GET['netx']
     else:
-        return reverse('jobs:home')
+        return reverse('Job:home')
 
 
 def user_registration(request):
@@ -29,7 +29,7 @@ def user_registration(request):
         form = form.save()
         return redirect('Accounts:login')
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'accounts/user-registration.html', context)
 
@@ -48,7 +48,7 @@ def company_registration(request):
     return render(request, 'accounts/company-registration.html', context)
 
 
-@login_required(login_url=reverse_lazy('accounts:login'))
+@login_required(login_url=reverse_lazy('Accounts:login'))
 @is_user
 def user_edit_profile(request, id=id):
     user = get_object_or_404(User, id=id)
@@ -56,13 +56,13 @@ def user_edit_profile(request, id=id):
     if form.is_valid():
         form.save()
         messages.success(request, 'Your Profile was SuccessFully Updated!')
-        return redirect(reverse("accounts:edit-profile", kwargs={
+        return redirect(reverse("Accounts:edit-profile", kwargs={
             'id': form.id
         }))
     context = {
         'form': form,
     }
-    return render(request, 'account/user-edit-profile.html', context)
+    return render(request, 'accounts/user-edit-profile.html', context)
 
 
 def user_logIn(request):

@@ -4,7 +4,7 @@ from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from .managers import UserManger
 
-GENDER_MALE = "m"
+'''GENDER_MALE = "m"
 GENDER_FEMALE = "f"
 OTHER = "o"
 
@@ -13,7 +13,12 @@ GENDER_CHOICES = (
     (GENDER_FEMALE, "Female"),
     (OTHER, "Other"),
 )
-
+'''
+GENDER_CHOICES = (
+    ('M', "Male"),
+    ('F', "Female"),
+    ('O', "Other"),
+)
 ROLE = (
     ('user', "User"),
     ('company', "Company")

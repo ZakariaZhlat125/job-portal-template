@@ -8,7 +8,7 @@ from Accounts.models import User
 class UserRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
-        UserCreationForm.__init__(self, *args, *kwargs)
+        UserCreationForm.__init__(self, *args, **kwargs)
         self.fields['gender'].required = True
         self.fields['first_name'].label = "First Name :"
         self.fields['last_name'].label = "Last Name :"
@@ -60,6 +60,11 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone',
                   'password1', 'password2', 'gender', 'date_of_birth']
+        error_messages = {
+            "first_name": {"required": "First name is required", "max_length": "Name is too long"},
+            "last_name": {"required": "Last name is required", "max_length": "Last Name is too long"},
+            "gender": {"required": "Gender is required"},
+        }
 
     def clean_gender(self):
         gender = self.cleaned_data.get('gender')
@@ -78,7 +83,7 @@ class UserRegistrationForm(UserCreationForm):
 class CompanyRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
-        UserCreationForm.__init__(self, *args, *kwargs)
+        UserCreationForm.__init__(self, *args, **kwargs)
         self.fields['first_name'].label = "First Name :"
         self.fields['last_name'].label = "Last Name :"
         self.fields['email'].label = "Email :"
@@ -154,7 +159,7 @@ class UserLoginForm(forms.Form):
 
             if not user.is_active:
                 raise forms.ValidationError("User is not Active")
-        return super(UserLoginForm, self).clean(**args, **kwargs)
+        return super(UserLoginForm, self).clean(*args, **kwargs)
 
     def get_user(self):
         return self.user
